@@ -10,6 +10,11 @@ commandExists() {
     type "$1" &> /dev/null;
 }
 
+if [[ $EUID -ne 0 ]]; then
+   echo "Plese run this script as root." 
+   exit 1
+fi
+
 if ! commandExists automake ; then
     echo "Command not found: automake"
     exit 1
@@ -21,22 +26,12 @@ if ! commandExists libtool ; then
         exit 1
     fi
 
-    sudo ln -s /usr/bin/libtoolize /usr/bin/libtool
-fi
-
-if ! commandExists sudo ; then
-    echo "Command not found: sudo"
-    exit 1
+    ln -s /usr/bin/libtoolize /usr/bin/libtool
 fi
 
 if ! commandExists git ; then
     echo "Command not found: git"
     exit 1
-fi
-
-if [[ ! $EUID -ne 0 ]]; then
-   echo "Plese do NOT run this script as root." 
-   exit 1
 fi
 
 # Create lib folders
@@ -45,7 +40,6 @@ if [ -d "bin" ]; then
 fi
 
 mkdir bin
-
 cd bin
 
 # Install libfdk-aac (see https://github.com/mstorsjo/fdk-aac)
@@ -56,7 +50,7 @@ cd libfdk-aac
 ./autogen.sh
 ./configure --enable-shared --enable-static
 make
-sudo make install
+make install
 
 cd ..
 
@@ -68,4 +62,4 @@ cd fdkaac
 autoreconf -i
 ./configure
 make
-sudo make install
+make install
