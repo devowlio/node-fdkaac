@@ -228,4 +228,4 @@ tempo | Set tempo (BPM) tag. | Number | `undefined`
 tag | Set iTunes predefined tag with explicit fourcc key and value. See [iTunesMetadata](https://code.google.com/p/mp4v2/wiki/iTunesMetadata) for known predefined keys. | \<fcc\>:\<value\> | `undefined`
 long-tag | Set arbitrary tag as iTunes custom metadata. Stored in com.apple.iTunes field. | \<fcc\>:\<value\> | `undefined`
 
-Option description text from [fdkaac](https://github.com/nu774/fdkaac) by [nu774](https://github.com/nu774).
+Option description text from [fdkaac](https://github.com/nu774/fdkaac) by [nu774](https://github.com/nu774). Based on fdkaac commit [4682fe4](https://github.com/nu774/fdkaac/tree/4682fe4961b92d3872e47d9fd4d9256151d292e7) from Jan 16, 2017.
