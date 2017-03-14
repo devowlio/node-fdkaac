@@ -12,139 +12,6 @@ Requirements
 * libfdk-aac and fdkaac installed (instructions see below)
 * node 6.9.* or newer
 
-Example
--------
-
-### Encode from file to file
-``` node
-var Fdkaac = require("Fdkaac");
-
-var encoder = new Fdkaac({
-    "output": "./audio-files/demo.m4a",
-    "bitrate": 192
-}).setFile("./audio-files/demo.wav");
-
-encoder.encode()
-    .then(() => {
-        // Encoding finished
-    })
-    .catch((error) => {
-        // Something went wrong
-    });
-```
-
-### Encode from file to buffer
-``` node
-var Fdkaac = require("Fdkaac");
-
-var encoder = new Fdkaac({
-    "output": "buffer",
-    "bitrate": 192
-}).setFile("./audio-files/demo.wav");
-
-encoder.encode()
-    .then(() => {
-        // Encoding finished
-        var buffer = encoder.getBuffer();
-    })
-    .catch((error) => {
-        // Something went wrong
-    });
-```
-
-### Encode from buffer to file
-``` node
-[...]
-
-var Fdkaac = require("Fdkaac");
-
-var encoder = new Fdkaac({
-    "output": "./audio-files/demo.m4a",
-    "bitrate": 192
-}).setBuffer(audioFileBuffer);
-
-encoder.encode()
-    .then(() => {
-        // Encoding finished
-    })
-    .catch((error) => {
-        // Something went wrong
-    });
-```
-
-### Encode from buffer to buffer
-``` node
-[...]
-
-var Fdkaac = require("Fdkaac");
-
-var encoder = new Fdkaac({
-    "output": "./audio-files/demo.m4a",
-    "bitrate": 192
-}).setBuffer(audioFileBuffer);
-
-encoder.encode()
-    .then(() => {
-        // Encoding finished
-        var buffer = encoder.getBuffer();
-    })
-    .catch((error) => {
-        // Something went wrong
-    });
-```
-
-### Get status of encoder as object
-``` node
-var Fdkaac = require("Fdkaac");
-
-var encoder = new Fdkaac({
-    "output": "buffer",
-    "bitrate": 192
-}).setFile("./audio-files/demo.wav");
-
-encoder.encode()
-    .then(() => {
-        // Encoding finished
-    })
-    .catch((error) => {
-        // Something went wrong
-    });
-
-var status = encoder.getStatus();
-```
-
-### Get status of encoder as EventEmitter
-``` node
-var Fdkaac = require("Fdkaac");
-
-var encoder = new Fdkaac({
-    "output": "buffer",
-    "bitrate": 192
-}).setFile("./audio-files/demo.wav");
-
-var emitter = encoder.getEmitter();
-
-emitter.on("progress", ([progress, eta]) => {
-    // On progress of encoding; in percent and estimated time of arrival as 00:00
-});
-
-emitter.on("finish", () => {
-    // On finish
-});
-
-emitter.on("error", (error) => {
-    // On error
-});
-
-encoder.encode()
-    .then(() => {
-        // Encoding finished
-    })
-    .catch((error) => {
-        // Something went wrong
-    });
-```
-
 Installation
 ------------
 
@@ -180,6 +47,139 @@ $ ./install.sh
 $ brew install automake libtool sudo git
 $ chmod +x install.sh
 $ ./install.sh
+```
+
+Example
+-------
+
+### Encode from file to file
+``` node
+const Fdkaac = require("Fdkaac");
+
+const encoder = new Fdkaac({
+    "output": "./audio-files/demo.m4a",
+    "bitrate": 192
+}).setFile("./audio-files/demo.wav");
+
+encoder.encode()
+    .then(() => {
+        // Encoding finished
+    })
+    .catch((error) => {
+        // Something went wrong
+    });
+```
+
+### Encode from file to buffer
+``` node
+const Fdkaac = require("Fdkaac");
+
+const encoder = new Fdkaac({
+    "output": "buffer",
+    "bitrate": 192
+}).setFile("./audio-files/demo.wav");
+
+encoder.encode()
+    .then(() => {
+        // Encoding finished
+        const buffer = encoder.getBuffer();
+    })
+    .catch((error) => {
+        // Something went wrong
+    });
+```
+
+### Encode from buffer to file
+``` node
+[...]
+
+const Fdkaac = require("Fdkaac");
+
+const encoder = new Fdkaac({
+    "output": "./audio-files/demo.m4a",
+    "bitrate": 192
+}).setBuffer(audioFileBuffer);
+
+encoder.encode()
+    .then(() => {
+        // Encoding finished
+    })
+    .catch((error) => {
+        // Something went wrong
+    });
+```
+
+### Encode from buffer to buffer
+``` node
+[...]
+
+const Fdkaac = require("Fdkaac");
+
+const encoder = new Fdkaac({
+    "output": "./audio-files/demo.m4a",
+    "bitrate": 192
+}).setBuffer(audioFileBuffer);
+
+encoder.encode()
+    .then(() => {
+        // Encoding finished
+        const buffer = encoder.getBuffer();
+    })
+    .catch((error) => {
+        // Something went wrong
+    });
+```
+
+### Get status of encoder as object
+``` node
+const Fdkaac = require("Fdkaac");
+
+const encoder = new Fdkaac({
+    "output": "buffer",
+    "bitrate": 192
+}).setFile("./audio-files/demo.wav");
+
+encoder.encode()
+    .then(() => {
+        // Encoding finished
+    })
+    .catch((error) => {
+        // Something went wrong
+    });
+
+const status = encoder.getStatus();
+```
+
+### Get status of encoder as EventEmitter
+``` node
+const Fdkaac = require("Fdkaac");
+
+const encoder = new Fdkaac({
+    "output": "buffer",
+    "bitrate": 192
+}).setFile("./audio-files/demo.wav");
+
+const emitter = encoder.getEmitter();
+
+emitter.on("progress", ([progress, eta]) => {
+    // On progress of encoding; in percent and estimated time of arrival as 00:00
+});
+
+emitter.on("finish", () => {
+    // On finish
+});
+
+emitter.on("error", (error) => {
+    // On error
+});
+
+encoder.encode()
+    .then(() => {
+        // Encoding finished
+    })
+    .catch((error) => {
+        // Something went wrong
+    });
 ```
 
 All options
