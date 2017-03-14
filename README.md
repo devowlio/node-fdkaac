@@ -32,21 +32,20 @@ If you have not installed [libfdk-aac](https://github.com/mstorsjo/fdk-aac) and 
 *install.sh requirements:*
 * automake
 * libtool
-* sudo
 * git
 
 ### Run on Debian/Ubuntu
 ``` bash
-$ apt-get install automake libtool sudo git
+$ apt-get install automake libtool git
 $ chmod +x install.sh
-$ ./install.sh
+$ sudo ./install.sh
 ```
 
 ### Run on Mac OS with brew
 ``` bash
-$ brew install automake libtool sudo git
+$ brew install automake libtool git
 $ chmod +x install.sh
-$ ./install.sh
+$ sudo ./install.sh
 ```
 
 Example
