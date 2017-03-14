@@ -16,8 +16,12 @@ if ! commandExists automake ; then
 fi
 
 if ! commandExists libtool ; then
-    echo "Command not found: libtool"
-    exit 1
+    if ! commandExists libtoolize ; then
+        echo "Command not found: libtool"
+        exit 1
+    fi
+
+    sudo ln -s /usr/bin/libtoolize /usr/bin/libtool
 fi
 
 if ! commandExists sudo ; then
