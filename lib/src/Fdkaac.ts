@@ -164,14 +164,16 @@ class Fdkaac {
 	 * @param {string} inputFilePath Path of input file
 	 */
 	private execEncode(inputFilePath: string) {
+		const args = this.args;
+
 		// Add input file to args
-		this.args.unshift(inputFilePath);
+		args.unshift(inputFilePath);
 
 		// Add output file to args, if not in options undefined
 		if (this.options.output == "buffer") {
 			const tempOutPath = this.tempFilePathGenerator("encoded");
-			this.args.push(`-o`);
-			this.args.push(`${tempOutPath}`);
+			args.push(`-o`);
+			args.push(`${tempOutPath}`);
 
 			// Set encoded file path
 			this.encodedBufferTempFilePath = tempOutPath;
@@ -255,7 +257,7 @@ class Fdkaac {
 			this.emitter.emit("error", error);
 		}
 
-		const instance = spawn("fdkaac", this.args);
+		const instance = spawn("fdkaac", args);
 		instance.stdout.on("data", encoderStdout);
 		instance.stderr.on("data", encoderStdout); // Most output, even not errors, are on stderr
 		instance.on("error", encoderError);
