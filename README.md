@@ -1,7 +1,8 @@
 node-fdkaac
 ===========
 
-Fraunhofer FDK AAC is a high-quality open-source AAC encoder. For all AAC and M4A encoding needs a Node.js wrapper of the full [fdkaac](https://github.com/nu774/fdkaac) command line frontend (by [nu774](https://github.com/nu774)) based on [libfdk-aac](https://github.com/mstorsjo/fdk-aac) encoder.
+A Node.js wrapper for the *Fraunhofer FDK AAC* open-source AAC encoder.
+All options of the [fdkaac](https://github.com/nu774/fdkaac) command line frontend are available. Based on the [libfdk-aac](https://github.com/mstorsjo/fdk-aac) encoder.
 
 The encoder reads linear PCM audio in either WAV, raw PCM or CAF format and encodes it into a M4A or an AAC file.
 
@@ -56,8 +57,8 @@ Example
 const Fdkaac = require("node-fdkaac");
 
 const encoder = new Fdkaac({
-    "output": "./audio-files/demo.m4a",
-    "bitrate": 192
+    output: "./audio-files/demo.m4a",
+    bitrate: 192
 }).setFile("./audio-files/demo.wav");
 
 encoder.encode()
@@ -74,8 +75,8 @@ encoder.encode()
 const Fdkaac = require("node-fdkaac");
 
 const encoder = new Fdkaac({
-    "output": "buffer",
-    "bitrate": 192
+    output: "buffer",
+    bitrate: 192
 }).setFile("./audio-files/demo.wav");
 
 encoder.encode()
@@ -95,8 +96,8 @@ encoder.encode()
 const Fdkaac = require("node-fdkaac");
 
 const encoder = new Fdkaac({
-    "output": "./audio-files/demo.m4a",
-    "bitrate": 192
+    output: "./audio-files/demo.m4a",
+    bitrate: 192
 }).setBuffer(audioFileBuffer);
 
 encoder.encode()
@@ -115,8 +116,8 @@ encoder.encode()
 const Fdkaac = require("node-fdkaac");
 
 const encoder = new Fdkaac({
-    "output": "buffer",
-    "bitrate": 192
+    output: "buffer",
+    bitrate: 192
 }).setBuffer(audioFileBuffer);
 
 encoder.encode()
@@ -134,8 +135,8 @@ encoder.encode()
 const Fdkaac = require("node-fdkaac");
 
 const encoder = new Fdkaac({
-    "output": "buffer",
-    "bitrate": 192
+    output: "buffer",
+    bitrate: 192
 }).setFile("./audio-files/demo.wav");
 
 encoder.encode()
@@ -154,8 +155,8 @@ const status = encoder.getStatus();
 const Fdkaac = require("node-fdkaac");
 
 const encoder = new Fdkaac({
-    "output": "buffer",
-    "bitrate": 192
+    output: "buffer",
+    bitrate: 192
 }).setFile("./audio-files/demo.wav");
 
 const emitter = encoder.getEmitter();
