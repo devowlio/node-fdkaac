@@ -199,11 +199,12 @@ class Fdkaac {
 			// Every output of fdkaac comes as "stderr", so decide if it is an error or valid data by regex
 			if (data.length > 10) {
 				if (data.search("samples processed in") > -1) { // processing done
-					this.emitter.emit("finish");
-
 					this.status.finished = true;
 					this.status.progress = 100;
 					this.status.eta = "00:00";
+
+					this.emitter.emit("finish");
+					this.emitter.emit("progress", [this.status.progress, this.status.eta]);
 				}
 				else if (data.search(/^\[(1{0,1}[0-9]{1,2})%\] /) > -1) { // status of processing
 					const progressMatch = data.match(/^\[(1{0,1}[0-9]{1,2})%\] /);
