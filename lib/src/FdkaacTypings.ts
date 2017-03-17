@@ -40,7 +40,7 @@ namespace Options {
 }
 
 interface Options {
-    "output"?: string | "buffer";
+    "output": string | "buffer";
     "profile"?: Options.profile;
     "bitrate"?: number;
     "bitrate-mode"?: Options.bitrateMode;
