@@ -120,7 +120,7 @@ class Fdkaac {
 	/**
 	 * Encode audio file by fdkaac/libfdk-aac
 	 * 
-	 * @return {boolean} Encoding have started
+	 * @return {Promise}
 	 */
 	public encode(): Promise<boolean> {
 		if (this.filePath == undefined && this.fileBuffer == undefined) {
