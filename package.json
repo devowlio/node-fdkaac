@@ -31,7 +31,7 @@
     "node": ">=6.9"
   },
   "scripts": {
-    "test": "./node_modules/.bin/mocha --compilers ts:ts-node/register"
+    "test": "./node_modules/.bin/mocha"
   },
   "files": [
     "lib/build/",

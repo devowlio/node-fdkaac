@@ -14,7 +14,7 @@ class FdkaacOptions {
      */
     constructor(options: Options) {
         // Output is required
-        if (options.output == undefined) {
+        if (options["output"] == undefined) {
             throw new Error("fdkaac: Invalid option: 'output' is required");
         }
 
