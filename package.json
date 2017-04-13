@@ -40,7 +40,9 @@
     "install.sh",
     "README.md"
   ],
-  "dependencies": {},
+  "dependencies": {
+    "fs-promise": "^2.0.2"
+  },
   "devDependencies": {
     "@types/chai": "^3.4.35",
     "@types/mocha": "^2.2.40",

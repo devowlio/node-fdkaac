@@ -34,7 +34,7 @@ If you have not installed [libfdk-aac](https://github.com/mstorsjo/fdk-aac) and 
 * libtool
 * git
 
-### Run on Debian/Ubuntu
+### Run on Debian
 ``` bash
 $ apt-get install automake libtool git
 $ chmod +x install.sh
