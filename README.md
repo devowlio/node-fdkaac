@@ -1,9 +1,9 @@
 node-fdkaac
 ===========
 
-Fraunhofer FDK AAC is a high-quality open-source AAC encoder. For all AAC and M4A encoding needs a Node.js wrapper of the full [fdkaac](https://github.com/nu774/fdkaac) command line frontend (by [nu774](https://github.com/nu774)) based on [libfdk-aac](https://github.com/mstorsjo/fdk-aac) encoder.
+Fraunhofer FDK AAC is a high-quality open-source AAC encoder. For all AAC and M4A encoding needs, a Node.js wrapper of the full [fdkaac](https://github.com/nu774/fdkaac) command line frontend (by [nu774](https://github.com/nu774)) based on [libfdk-aac](https://github.com/mstorsjo/fdk-aac) encoder.
 
-The encoder reads linear PCM audio in either WAV, raw PCM or CAF format and encodes it into a M4A or an AAC file.
+The encoder reads linear PCM audio in either WAV, raw PCM or CAF format and encodes it into an M4A or an AAC file.
 
 Requirements
 ------------
@@ -214,7 +214,7 @@ Option | Description | Values | Default
 --- | --- | --- | ---
 title | Set title tag. | String | `undefined`
 artist | Set artist tag. | String | `undefined`
-artist | Set album tag. | String | `undefined`
+album | Set album tag. | String | `undefined`
 genre | Set genre tag. | String | `undefined`
 date | Set date tag. | String | `undefined`
 composer | Set composer tag. | String | `undefined`

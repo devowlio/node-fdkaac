@@ -111,7 +111,7 @@ class FdkaacOptions {
 
     private profile(value) {
         if (value != 2 && value != 5 && value != 29 && value != 23 && value != 39) {
-            throw new Error("fdkaac: Invalid option: 'profile' have to be 2, 5, 29, 23 or 39");
+            throw new Error("fdkaac: Invalid option: 'profile' has to be 2, 5, 29, 23 or 39");
         }
 
         return [`--profile`, value];
@@ -119,7 +119,7 @@ class FdkaacOptions {
 
     private bitrate(value) {
         if (value < 1) {
-            throw new Error("fdkaac: Invalid option: 'birate' have to be positive");
+            throw new Error("fdkaac: Invalid option: 'birate' has to be positive");
         }
 
         return [`--bitrate`, value];
@@ -127,7 +127,7 @@ class FdkaacOptions {
 
     private bitrateMode(value) {
         if (value < 0 || value > 5) {
-            throw new Error("Invalid option: 'bitrateMode' have to be betweet 0 and 5");
+            throw new Error("Invalid option: 'bitrateMode' has to be betweet 0 and 5");
         }
 
         return [`--bitrate-mode`, value];
@@ -135,7 +135,7 @@ class FdkaacOptions {
 
     private bandwidth(value) {
         if (value < 1) {
-            throw new Error("fdkaac: Invalid option: 'bandwidth' have to be positive");
+            throw new Error("fdkaac: Invalid option: 'bandwidth' has to be positive");
         }
 
         return [`--bandwidth`, value];
@@ -152,7 +152,7 @@ class FdkaacOptions {
 
     private lowdelaySbr(value) {
         if (value != -1 && value != 0 && value != 1) {
-            throw new Error("fdkaac: Invalid option: 'lowdelaySbr' have to be -1, 0 or 1");
+            throw new Error("fdkaac: Invalid option: 'lowdelaySbr' has to be -1, 0 or 1");
         }
 
         return [`--lowdelay-sbr`, value];
@@ -160,7 +160,7 @@ class FdkaacOptions {
 
     private sbrRatio(value) {
         if (value != 0 && value != 1 && value != 2) {
-            throw new Error("fdkaac: Invalid option: 'sbrRatio' have to be 0, 1 or 2");
+            throw new Error("fdkaac: Invalid option: 'sbrRatio' has to be 0, 1 or 2");
         }
 
         return [`--sbr-ratio`, value];
@@ -168,7 +168,7 @@ class FdkaacOptions {
 
     private transportFormat(value) {
         if (value != 0 && value != 1 && value != 2 && value != 6 && value != 7 && value != 10) {
-            throw new Error("fdkaac: Invalid option: 'transportFormat' have to be 0, 1, 2, 6, 7 or 10");
+            throw new Error("fdkaac: Invalid option: 'transportFormat' has to be 0, 1, 2, 6, 7 or 10");
         }
 
         return [`--transport-format`, value];
@@ -189,7 +189,7 @@ class FdkaacOptions {
 
     private gaplessMode(value) {
         if (value != 0 && value != 1 && value != 2) {
-            throw new Error("fdkaac: Invalid option: 'gaplessMode' have to be 0, 1 or 2");
+            throw new Error("fdkaac: Invalid option: 'gaplessMode' has to be 0, 1 or 2");
         }
 
         return [`--gapless-mode`, value];
@@ -233,7 +233,7 @@ class FdkaacOptions {
 
     private rawChannels(value) {
         if (value < 1) {
-            throw new Error("fdkaac: Invalid option: 'rawChannels' have to be positive");
+            throw new Error("fdkaac: Invalid option: 'rawChannels' has to be positive");
         }
 
         return [`--raw-channels`, value];
@@ -241,7 +241,7 @@ class FdkaacOptions {
 
     private rawRate(value) {
         if (value < 1) {
-            throw new Error("fdkaac: Invalid option: 'rawRate' have to be positive");
+            throw new Error("fdkaac: Invalid option: 'rawRate' has to be positive");
         }
 
         return [`--raw-rate`, value];

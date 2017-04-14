@@ -169,7 +169,7 @@ class Fdkaac {
 		// Add input file to args
 		args.unshift(inputFilePath);
 
-		// Add output file to args, if not in options undefined
+		// Add output file to args, if not undefined in options
 		if (this.options.output == "buffer") {
 			const tempOutPath = this.tempFilePathGenerator("encoded");
 			args.push(`-o`);
@@ -198,7 +198,7 @@ class Fdkaac {
 		const encoderStdout = (data: String | Buffer) => {
 			data = data.toString().trim();
 
-			// Every output of fdkaac comes as "stderr", so decide if it is an error or valid data by regex
+			// Every output of fdkaac comes as "stderr". Deciding if it is an error or valid data by regex
 			if (data.length > 10) {
 				if (data.search("samples processed in") > -1) { // processing done
 					this.status.finished = true;
@@ -238,7 +238,7 @@ class Fdkaac {
 				}
 				else if (data.search(/\(([0-9][0-9]|[0-9])x\)/) > -1) { // linebreak of status, unknown in next line => do nothing
 				}
-				else { // Not expected output => error
+				else { // Unexpected output => error
 					if (data.search(/^fdkaac/) == -1) {
 						data = `fdkaac: ${data}`;
 					}
@@ -259,7 +259,7 @@ class Fdkaac {
 
 		const instance = spawn("fdkaac", args);
 		instance.stdout.on("data", encoderStdout);
-		instance.stderr.on("data", encoderStdout); // Most output, even not errors, are on stderr
+		instance.stderr.on("data", encoderStdout); // Most output, even non-errors, is on stderr
 		instance.on("error", encoderError);
 
 		// Return promise of finish encoding progress
@@ -270,7 +270,7 @@ class Fdkaac {
 					fsUnlink(this.fileBufferTempFilePath);
 				}
 
-				// If output should be a buffer, load encoded audio file in object and remove temp file
+				// If output should be a buffer, load encoded audio file into object and remove temp file
 				if (this.options.output == "buffer") {
 					fsReadFile(this.encodedBufferTempFilePath, null, (error, data: string) => {
 						// Remove temp encoded file

@@ -1,5 +1,5 @@
 /**
- * Status data of fdkaa instance
+ * Status data of fdkaac instance
  * 
  * @interface FdkaacStatus
  */
