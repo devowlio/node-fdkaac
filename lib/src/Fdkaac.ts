@@ -283,6 +283,8 @@ class Fdkaac {
 
 						this.encodedBuffer = new Buffer(data);
 						this.encodedBufferTempFilePath = undefined;
+
+						resolve(this);
 					});
 				}
 				else {
