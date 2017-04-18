@@ -4,4 +4,4 @@
 
 "use strict";
 
-module.exports = require('./lib/build/Fdkaac').Fdkaac;
+module.exports = require('./lib/build/Fdkaac');

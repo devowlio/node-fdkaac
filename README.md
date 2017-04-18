@@ -53,7 +53,7 @@ Example
 
 ### Encode from file to file
 ``` node
-const Fdkaac = require("node-fdkaac");
+const Fdkaac = require("node-fdkaac").Fdkaac;
 
 const encoder = new Fdkaac({
     "output": "./audio-files/demo.m4a",
@@ -71,7 +71,7 @@ encoder.encode()
 
 ### Encode from file to buffer
 ``` node
-const Fdkaac = require("node-fdkaac");
+const Fdkaac = require("node-fdkaac").Fdkaac;
 
 const encoder = new Fdkaac({
     "output": "buffer",
@@ -92,7 +92,7 @@ encoder.encode()
 ``` node
 [...]
 
-const Fdkaac = require("node-fdkaac");
+const Fdkaac = require("node-fdkaac").Fdkaac;
 
 const encoder = new Fdkaac({
     "output": "./audio-files/demo.m4a",
@@ -112,7 +112,7 @@ encoder.encode()
 ``` node
 [...]
 
-const Fdkaac = require("node-fdkaac");
+const Fdkaac = require("node-fdkaac").Fdkaac;
 
 const encoder = new Fdkaac({
     "output": "buffer",
@@ -131,7 +131,7 @@ encoder.encode()
 
 ### Get status of encoder as object
 ``` node
-const Fdkaac = require("node-fdkaac");
+const Fdkaac = require("node-fdkaac").Fdkaac;
 
 const encoder = new Fdkaac({
     "output": "buffer",
@@ -151,7 +151,7 @@ const status = encoder.getStatus();
 
 ### Get status of encoder as EventEmitter
 ``` node
-const Fdkaac = require("node-fdkaac");
+const Fdkaac = require("node-fdkaac").Fdkaac;
 
 const encoder = new Fdkaac({
     "output": "buffer",

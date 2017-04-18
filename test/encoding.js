@@ -6,7 +6,7 @@ const fs = require("fs");
 const fsp = require("fs-promise");
 const util = require("util");
 
-const Fdkaac = require("../index");
+const Fdkaac = require("../index").Fdkaac;
 
 testCase("Fdkaac class", () => {
     const TESTFILE = "./test/example.wav";
