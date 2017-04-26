@@ -305,7 +305,8 @@ class Fdkaac {
 	 * @returns {string} Path
 	 */
 	private tempFilePathGenerator(type: "raw" | "encoded"): string {
-		let path = `./temp/${type}/`;
+		const prefix = `${__dirname}/../.`;
+		let path = `${prefix}./temp/${type}/`;
 		let possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
 		for (let i = 0; i < 32; i++) {
@@ -313,7 +314,7 @@ class Fdkaac {
 		}
 
 
-		if (!fsExistsSync(`./temp/${path}`)) {
+		if (!fsExistsSync(`${prefix}./temp/${path}`)) {
 			return path;
 		}
 		else {
