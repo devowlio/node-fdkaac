@@ -236,7 +236,8 @@ class Fdkaac {
 						this.status.eta = eta;
 					}
 				}
-				else if (data.search(/\(([0-9][0-9]|[0-9])x\)/) > -1) { // linebreak of status, unknown in next line => do nothing
+				else if (data.search(/\(([0-9][0-9]|[0-9])x\)/) > -1 || data.search(/^[0-9]{1,2}:[0-9]{1,2}.[0-9]{1,3}\/[0-9]{1,2}:[0-9]{1,2}.[0-9]{1,3}/) > -1) {
+					// linebreak of status, unknown in next line => do nothing
 				}
 				else { // Unexpected output => error
 					if (data.search(/^fdkaac/) == -1) {

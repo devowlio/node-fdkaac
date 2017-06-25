@@ -1,7 +1,7 @@
 {
   "name": "node-fdkaac",
   "description": "fdkaac/libfdk-aac AAC/M4A encoder for Node.js",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "homepage": "https://github.com/jankarres/node-fdkaac",
   "bugs": {
     "url": "https://github.com/jankarres/node-fdkaac/issues"
@@ -11,12 +11,10 @@
     "email": "jan.karres@mediee.com",
     "url": "https://mediee.com/"
   },
-  "contributors": [
-    {
-      "name": "Elias Porcio",
-      "email": "elias.porcio@gmail.com"
-    }
-  ],
+  "contributors": [{
+    "name": "Elias Porcio",
+    "email": "elias.porcio@gmail.com"
+  }],
   "keywords": [
     "aac",
     "m4a",
