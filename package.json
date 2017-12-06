@@ -11,10 +11,12 @@
     "email": "jan.karres@mediee.com",
     "url": "https://mediee.com/"
   },
-  "contributors": [{
-    "name": "Elias Porcio",
-    "email": "elias.porcio@gmail.com"
-  }],
+  "contributors": [
+    {
+      "name": "Elias Porcio",
+      "email": "elias.porcio@gmail.com"
+    }
+  ],
   "keywords": [
     "aac",
     "m4a",
@@ -48,5 +50,8 @@
     "mocha": "^3.2.0",
     "ts-node": "^2.1.0",
     "typescript": "^2.2.1"
+  },
+  "dependencies": {
+    "ffmpeg-progress-wrapper": "^0.2.3"
   }
 }
