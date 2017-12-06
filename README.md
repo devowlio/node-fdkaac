@@ -9,7 +9,7 @@ Requirements
 ------------
 
 * Linux or Mac OS (Windows is NOT support by this package)
-* libfdk-aac and fdkaac installed (instructions see below)
+* libfdk-aac, fdkaac and ffmpeg installed (instructions see below)
 * node 6.9.* or newer
 
 Installation
@@ -36,14 +36,14 @@ If you have not installed [libfdk-aac](https://github.com/mstorsjo/fdk-aac) and 
 
 ### Run on Debian
 ``` bash
-$ apt-get install automake libtool git
+$ apt-get install automake libtool git ffmpeg
 $ chmod +x install.sh
 $ sudo ./install.sh
 ```
 
 ### Run on Mac OS with brew
 ``` bash
-$ brew install automake libtool git
+$ brew install automake libtool git ffmpeg
 $ chmod +x install.sh
 $ sudo ./install.sh
 ```
@@ -175,6 +175,80 @@ emitter.on("error", (error) => {
 encoder.encode()
     .then(() => {
         // Encoding finished
+    })
+    .catch((error) => {
+        // Something went wrong
+    });
+```
+
+### Decode from file to file
+``` node
+const Fdkaac = require("node-fdkaac").Fdkaac;
+
+const decoder = new Fdkaac({
+    "output": "./audio-files/demo.wav"
+}).setFile("./audio-files/demo.m4a");
+
+decoder.decode()
+    .then(() => {
+        // Decoding finished
+    })
+    .catch((error) => {
+        // Something went wrong
+    });
+```
+
+### Decode from file to buffer
+``` node
+const Fdkaac = require("node-fdkaac").Fdkaac;
+
+const decoder = new Lame({
+    "output": "buffer"
+}).setFile("./audio-files/demo.m4a");
+
+decoder.decode()
+    .then(() => {
+        // Decoding finished
+        const buffer = decoder.getBuffer();
+    })
+    .catch((error) => {
+        // Something went wrong
+    });
+```
+
+### Decode from buffer to file
+``` node
+[...]
+
+const Fdkaac = require("node-fdkaac").Fdkaac;
+
+const decoder = new Lame({
+    "output": "./audio-files/demo.wav"
+}).setBuffer(m4aInputBuffer);
+
+decoder.decode()
+    .then(() => {
+        // Decoding finished
+    })
+    .catch((error) => {
+        // Something went wrong
+    });
+```
+
+### Decode from buffer to buffer
+``` node
+[...]
+
+const Fdkaac = require("node-fdkaac").Fdkaac;
+
+const decoder = new Lame({
+    "output": "buffer"
+}).setBuffer(mp4aInputBuffer);
+
+decoder.decode()
+    .then(() => {
+        // Decoding finished
+        const buffer = decoder.getBuffer();
     })
     .catch((error) => {
         // Something went wrong
