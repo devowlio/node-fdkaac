@@ -1,7 +1,7 @@
 {
   "name": "node-fdkaac",
   "description": "fdkaac/libfdk-aac AAC/M4A encoder for Node.js",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "homepage": "https://github.com/jankarres/node-fdkaac",
   "repository": {
     "type": "git",
@@ -52,8 +52,5 @@
     "mocha": "^3.2.0",
     "ts-node": "^2.1.0",
     "typescript": "^2.2.1"
-  },
-  "dependencies": {
-    "ffmpeg-progress-wrapper": "^0.2.3"
   }
 }
