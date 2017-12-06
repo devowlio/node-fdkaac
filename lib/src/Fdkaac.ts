@@ -26,9 +26,9 @@ class Fdkaac {
 	private fileBuffer: Buffer;
 	private fileBufferTempFilePath: string;
 
-	private encodedFilePath: string;
-	private encodedBuffer: Buffer;
-	private encodedBufferTempFilePath: string;
+	private progressedFilePath: string;
+	private progressedBuffer: Buffer;
+	private progressedBufferTempFilePath: string;
 
 	/**
 	 * Creates an instance of Fdkaac and set all options
@@ -76,27 +76,27 @@ class Fdkaac {
 	/**
 	 * Get encoded file path
 	 * 
-	 * @returns {string} Path of encoded file
+	 * @returns {string} Path of encoded/decoded file
 	 */
 	public getFile(): string {
-		if (this.encodedFilePath == undefined) {
+		if (this.progressedFilePath == undefined) {
 			throw new Error("Audio is not yet encoded");
 		}
 
-		return this.encodedFilePath;
+		return this.progressedFilePath;
 	}
 
 	/**
 	 * Get encoded file as buffer
 	 * 
-	 * @returns {Buffer} Encoded file
+	 * @returns {Buffer} Encoded/Decoded file
 	 */
 	public getBuffer(): Buffer {
-		if (this.encodedBuffer == undefined) {
+		if (this.progressedBuffer == undefined) {
 			throw new Error("Audio is not yet encoded");
 		}
 
-		return this.encodedBuffer;
+		return this.progressedBuffer;
 	}
 
 	/**
@@ -122,13 +122,13 @@ class Fdkaac {
 	 * 
 	 * @return {Promise}
 	 */
-	public encode(): Promise<boolean> {
+	public encode(): Promise<any> {
 		if (this.filePath == undefined && this.fileBuffer == undefined) {
 			throw new Error("Audio file to encode is not set");
 		}
 
 		if (this.fileBuffer != undefined) { // File buffer is set; write it as temp file
-			this.fileBufferTempFilePath = this.tempFilePathGenerator("raw");
+			this.fileBufferTempFilePath = this.tempFilePathGenerator("raw", "encode");
 
 			return new Promise((resolve, reject) => {
 				fsWriteFile(this.fileBufferTempFilePath, this.fileBuffer, (err) => {
@@ -171,16 +171,16 @@ class Fdkaac {
 
 		// Add output file to args, if not undefined in options
 		if (this.options.output == "buffer") {
-			const tempOutPath = this.tempFilePathGenerator("encoded");
+			const tempOutPath = this.tempFilePathGenerator("encoded", "encode");
 			args.push(`-o`);
 			args.push(`${tempOutPath}`);
 
 			// Set encoded file path
-			this.encodedBufferTempFilePath = tempOutPath;
+			this.progressedBufferTempFilePath = tempOutPath;
 		}
 		else {
 			// Set encoded file path
-			this.encodedFilePath = this.options.output;
+			this.progressedFilePath = this.options.output;
 		}
 
 		// Spawn instance of encoder and hook output methods
@@ -273,17 +273,17 @@ class Fdkaac {
 
 				// If output should be a buffer, load encoded audio file into object and remove temp file
 				if (this.options.output == "buffer") {
-					fsReadFile(this.encodedBufferTempFilePath, null, (error, data: string) => {
+					fsReadFile(this.progressedBufferTempFilePath, null, (error, data: string) => {
 						// Remove temp encoded file
-						fsUnlink(this.encodedBufferTempFilePath);
+						fsUnlink(this.progressedBufferTempFilePath);
 
 						if (error) {
 							reject(error);
 							return;
 						}
 
-						this.encodedBuffer = new Buffer(data);
-						this.encodedBufferTempFilePath = undefined;
+						this.progressedBuffer = new Buffer(data);
+						this.progressedBufferTempFilePath = undefined;
 
 						resolve(this);
 					});
@@ -305,7 +305,7 @@ class Fdkaac {
 	 * @param {("raw" | "encoded")} type 
 	 * @returns {string} Path
 	 */
-	private tempFilePathGenerator(type: "raw" | "encoded"): string {
+	private tempFilePathGenerator(type: "raw" | "encoded", progressType: "encode" | "decode"): string {
 		const prefix = `${__dirname}/../.`;
 		let path = `${prefix}./temp/${type}/`;
 		let possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -314,12 +314,15 @@ class Fdkaac {
 			path += possible.charAt(Math.floor(Math.random() * possible.length));
 		}
 
+		if (type == "raw" && progressType == "decode") {
+			path += `.mp3`;
+		}
 
 		if (!fsExistsSync(`${prefix}./temp/${path}`)) {
 			return path;
 		}
 		else {
-			return this.tempFilePathGenerator(type);
+			return this.tempFilePathGenerator(type, progressType);
 		}
 	}
 
@@ -328,11 +331,21 @@ class Fdkaac {
 	 */
 	private removeTempFilesOnError() {
 		if (this.fileBufferTempFilePath != undefined) {
-			fsUnlink(this.fileBufferTempFilePath);
+			try {
+				fsUnlink(this.fileBufferTempFilePath);
+			}
+			catch (error) {
+				// Ignore
+			}
 		}
 
-		if (this.encodedBufferTempFilePath != undefined) {
-			fsUnlink(this.encodedBufferTempFilePath);
+		if (this.progressedBufferTempFilePath != undefined) {
+			try {
+				fsUnlink(this.progressedBufferTempFilePath);
+			}
+			catch (error) {
+				// Ignore; actually already unlinked
+			}
 		}
 	}
 }
