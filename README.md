@@ -21,12 +21,6 @@ You can install it with `npm`:
 $ npm install --save node-fdkaac
 ```
 
-If you write in Typescipt 2 or newer, you can install typings:
-
-``` bash
-$ npm install --save git://github.com/jankarres/types-node-fdkaac/
-```
-
 If you have not installed [libfdk-aac](https://github.com/mstorsjo/fdk-aac), [fdkaac](https://github.com/nu774/fdkaac) and [ffmpeg](https://www.ffmpeg.org/) yet, you find a bash script to compile the source code as `install.sh` in this package.
 
 *install.sh requirements:*
