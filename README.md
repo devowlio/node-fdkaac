@@ -10,7 +10,7 @@ Requirements
 
 * Linux or Mac OS (Windows is NOT support by this package)
 * libfdk-aac, fdkaac and ffmpeg installed (instructions see below)
-* node 6.9.* or newer
+* node 8.11.* or newer
 
 Installation
 ------------

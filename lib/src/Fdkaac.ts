@@ -1,6 +1,6 @@
 import { FdkaacStatus, Options } from "./FdkaacTypings";
 import { FdkaacOptions } from "./FdkaacOptions";
-import { existsSync as fsExistsSync, readFile as fsReadFile, writeFile as fsWriteFile, writeFileSync as fsWriteFileSync, unlink as fsUnlink } from "fs";
+import { existsSync as fsExistsSync, readFile as fsReadFile, writeFile as fsWriteFile, writeFileSync as fsWriteFileSync, unlinkSync as fsUnlinkSync } from "fs";
 import { isBuffer as utilIsBuffer } from "util";
 import { spawn } from "child_process";
 import { EventEmitter } from "events";
@@ -306,14 +306,14 @@ class Fdkaac {
 			this.emitter.on("finish", () => {
 				// If input was buffer, remove temp file
 				if (this.fileBufferTempFilePath != undefined) {
-					fsUnlink(this.fileBufferTempFilePath);
+					fsUnlinkSync(this.fileBufferTempFilePath);
 				}
 
 				// If output should be a buffer, load encoded audio file into object and remove temp file
 				if (this.options.output == "buffer") {
 					fsReadFile(this.progressedBufferTempFilePath, null, (error, data: string) => {
 						// Remove temp encoded file
-						fsUnlink(this.progressedBufferTempFilePath);
+						fsUnlinkSync(this.progressedBufferTempFilePath);
 
 						if (error) {
 							reject(error);
@@ -479,14 +479,14 @@ class Fdkaac {
 			this.emitter.on("finish", () => {
 				// If input was buffer, remove temp file
 				if (this.fileBufferTempFilePath != undefined) {
-					fsUnlink(this.fileBufferTempFilePath);
+					fsUnlinkSync(this.fileBufferTempFilePath);
 				}
 
 				// If output should be a buffer, load encoded audio file into object and remove temp file
 				if (this.options.output == "buffer") {
 					fsReadFile(this.progressedBufferTempFilePath, null, (error, data: string) => {
 						// Remove temp encoded file
-						fsUnlink(this.progressedBufferTempFilePath);
+						fsUnlinkSync(this.progressedBufferTempFilePath);
 
 						if (error) {
 							reject(error);
@@ -543,7 +543,7 @@ class Fdkaac {
 	private removeTempFilesOnError() {
 		if (this.fileBufferTempFilePath != undefined) {
 			try {
-				fsUnlink(this.fileBufferTempFilePath);
+				fsUnlinkSync(this.fileBufferTempFilePath);
 			}
 			catch (error) {
 				// Ignore
@@ -552,7 +552,7 @@ class Fdkaac {
 
 		if (this.progressedBufferTempFilePath != undefined) {
 			try {
-				fsUnlink(this.progressedBufferTempFilePath);
+				fsUnlinkSync(this.progressedBufferTempFilePath);
 			}
 			catch (error) {
 				// Ignore; actually already unlinked
