@@ -1,10 +1,8 @@
 const testCase = require("mocha").describe;
-const pre = require("mocha").before;
 const assertions = require("mocha").it;
 const assert = require("chai").assert;
 const fs = require("fs");
-const fsp = require("fs-promise");
-const util = require("util");
+const fsp = require("fs-extra");
 
 const Fdkaac = require("../index").Fdkaac;
 
@@ -44,7 +42,7 @@ testCase("Fdkaac class", () => {
 
             try {
                 const instance = new Fdkaac({
-                    "output": OUTPUTFILE
+                    output: OUTPUTFILE
                 });
 
                 instance.setFile("./test/not-existing.wav");
@@ -68,17 +66,18 @@ testCase("Fdkaac class", () => {
             const targetBitrate = 128;
 
             const instance = new Fdkaac({
-                "output": OUTPUTFILE,
-                "bitrate": targetBitrate
+                output: OUTPUTFILE,
+                bitrate: targetBitrate
             });
 
             instance.setFile("./test/notAWavFile.wav");
 
-            return instance.encode()
+            return instance
+                .encode()
                 .then(() => {
                     assert.isTrue(errorCaught);
                 })
-                .catch((error) => {
+                .catch(error => {
                     errorCaught = true;
 
                     const expected = "fdkaac: ERROR: unsupported input file";
@@ -97,25 +96,27 @@ testCase("Fdkaac class", () => {
             const targetBitrate = 128;
 
             const instance = new Fdkaac({
-                "output": OUTPUTFILE,
-                "bitrate": targetBitrate
+                output: OUTPUTFILE,
+                bitrate: targetBitrate
             });
 
             instance.setFile(TESTFILE);
 
-            return instance.encode()
-                .then(() => {
-                    // Test expected file duration
-                    return fsp.stat(OUTPUTFILE)
-                        .then((stats) => {
-                            const size = stats.size;
-                            const resultDuration = (size * 8) / (targetBitrate * 1000);
-                            fs.unlinkSync(OUTPUTFILE);
+            return instance.encode().then(() => {
+                // Test expected file duration
+                return fsp.stat(OUTPUTFILE).then(stats => {
+                    const size = stats.size;
+                    const resultDuration = (size * 8) / (targetBitrate * 1000);
+                    fs.unlinkSync(OUTPUTFILE);
 
-                            const isDurationWithinTolerance = (TESTFILE_DURATION - resultDuration) < RESULT_DURATION_TOLERANCE && TESTFILE_DURATION - resultDuration > ((-1) * RESULT_DURATION_TOLERANCE);
-                            assert.isTrue(isDurationWithinTolerance);
-                        })
+                    const isDurationWithinTolerance =
+                        TESTFILE_DURATION - resultDuration <
+                            RESULT_DURATION_TOLERANCE &&
+                        TESTFILE_DURATION - resultDuration >
+                            -1 * RESULT_DURATION_TOLERANCE;
+                    assert.isTrue(isDurationWithinTolerance);
                 });
+            });
         });
 
         /**
@@ -126,24 +127,27 @@ testCase("Fdkaac class", () => {
             const targetBitrate = 64;
 
             const instance = new Fdkaac({
-                "output": OUTPUTFILE,
-                "bitrate": targetBitrate
+                output: OUTPUTFILE,
+                bitrate: targetBitrate
             });
 
             instance.setFile(TESTFILE);
 
-            return instance.encode()
-                .then(() => {
-                    // Test expected file duration
-                    return fsp.stat(OUTPUTFILE).then((stats) => {
-                        const size = stats.size;
-                        const resultDuration = (size * 8) / (targetBitrate * 1000);
-                        fs.unlinkSync(OUTPUTFILE);
+            return instance.encode().then(() => {
+                // Test expected file duration
+                return fsp.stat(OUTPUTFILE).then(stats => {
+                    const size = stats.size;
+                    const resultDuration = (size * 8) / (targetBitrate * 1000);
+                    fs.unlinkSync(OUTPUTFILE);
 
-                        const isDurationWithinTolerance = (TESTFILE_DURATION - resultDuration) < RESULT_DURATION_TOLERANCE && TESTFILE_DURATION - resultDuration > ((-1) * RESULT_DURATION_TOLERANCE);
-                        assert.isTrue(isDurationWithinTolerance);
-                    })
+                    const isDurationWithinTolerance =
+                        TESTFILE_DURATION - resultDuration <
+                            RESULT_DURATION_TOLERANCE &&
+                        TESTFILE_DURATION - resultDuration >
+                            -1 * RESULT_DURATION_TOLERANCE;
+                    assert.isTrue(isDurationWithinTolerance);
                 });
+            });
         });
 
         /**
@@ -154,27 +158,28 @@ testCase("Fdkaac class", () => {
             const targetBitrate = 500;
 
             const instance = new Fdkaac({
-                "output": OUTPUTFILE,
-                "bitrate": targetBitrate
+                output: OUTPUTFILE,
+                bitrate: targetBitrate
             });
 
             instance.setFile(TESTFILE);
 
-            return instance.encode()
-                .then(() => {
-                    // Test expected file duration
-                    return fsp.stat(OUTPUTFILE)
-                        .then((stats) => {
-                            const size = stats.size;
-                            const resultDuration = (size * 8) / (targetBitrate * 1000);
-                            fs.unlinkSync(OUTPUTFILE);
+            return instance.encode().then(() => {
+                // Test expected file duration
+                return fsp.stat(OUTPUTFILE).then(stats => {
+                    const size = stats.size;
+                    const resultDuration = (size * 8) / (targetBitrate * 1000);
+                    fs.unlinkSync(OUTPUTFILE);
 
-                            const isDurationWithinTolerance = (TESTFILE_DURATION - resultDuration) < RESULT_DURATION_TOLERANCE && TESTFILE_DURATION - resultDuration > ((-1) * RESULT_DURATION_TOLERANCE);
-                            assert.isTrue(isDurationWithinTolerance);
-                        })
+                    const isDurationWithinTolerance =
+                        TESTFILE_DURATION - resultDuration <
+                            RESULT_DURATION_TOLERANCE &&
+                        TESTFILE_DURATION - resultDuration >
+                            -1 * RESULT_DURATION_TOLERANCE;
+                    assert.isTrue(isDurationWithinTolerance);
                 });
+            });
         });
-
 
         /**
          * @testname Encode file to buffer
@@ -185,23 +190,26 @@ testCase("Fdkaac class", () => {
             const output = "buffer";
 
             const instance = new Fdkaac({
-                "output": output,
-                "bitrate": targetBitrate
+                output: output,
+                bitrate: targetBitrate
             });
 
             instance.setFile(TESTFILE);
 
-            return instance.encode()
-                .then(() => {
-                    // Test expected file duration
-                    const buffer = instance.getBuffer();
+            return instance.encode().then(() => {
+                // Test expected file duration
+                const buffer = instance.getBuffer();
 
-                    const size = buffer.byteLength;
-                    resultDuration = (size * 8) / (targetBitrate * 1000);
+                const size = buffer.byteLength;
+                resultDuration = (size * 8) / (targetBitrate * 1000);
 
-                    const isDurationWithinTolerance = (TESTFILE_DURATION - resultDuration < RESULT_DURATION_TOLERANCE && TESTFILE_DURATION - resultDuration > (-1) * RESULT_DURATION_TOLERANCE);
-                    assert(isDurationWithinTolerance);
-                });
+                const isDurationWithinTolerance =
+                    TESTFILE_DURATION - resultDuration <
+                        RESULT_DURATION_TOLERANCE &&
+                    TESTFILE_DURATION - resultDuration >
+                        -1 * RESULT_DURATION_TOLERANCE;
+                assert(isDurationWithinTolerance);
+            });
         });
 
         /**
@@ -211,28 +219,31 @@ testCase("Fdkaac class", () => {
         assertions("Encode buffer to file", () => {
             const targetBitrate = 128;
 
-            return fsp.readFile(TESTFILE)
-                .then((inputBuffer) => {
-                    const instance = new Fdkaac({
-                        "output": OUTPUTFILE,
-                        "bitrate": targetBitrate
-                    });
-
-                    instance.setBuffer(inputBuffer);
-
-                    return instance.encode()
-                        .then(() => {
-                            // Test expected file duration
-                            return fsp.stat(OUTPUTFILE).then((stats) => {
-                                const size = stats.size;
-                                const resultDuration = (size * 8) / (targetBitrate * 1000);
-                                fs.unlinkSync(OUTPUTFILE);
-
-                                const isDurationWithinTolerance = (TESTFILE_DURATION - resultDuration) < RESULT_DURATION_TOLERANCE && TESTFILE_DURATION - resultDuration > ((-1) * RESULT_DURATION_TOLERANCE);
-                                assert.isTrue(isDurationWithinTolerance);
-                            })
-                        });
+            return fsp.readFile(TESTFILE).then(inputBuffer => {
+                const instance = new Fdkaac({
+                    output: OUTPUTFILE,
+                    bitrate: targetBitrate
                 });
+
+                instance.setBuffer(inputBuffer);
+
+                return instance.encode().then(() => {
+                    // Test expected file duration
+                    return fsp.stat(OUTPUTFILE).then(stats => {
+                        const size = stats.size;
+                        const resultDuration =
+                            (size * 8) / (targetBitrate * 1000);
+                        fs.unlinkSync(OUTPUTFILE);
+
+                        const isDurationWithinTolerance =
+                            TESTFILE_DURATION - resultDuration <
+                                RESULT_DURATION_TOLERANCE &&
+                            TESTFILE_DURATION - resultDuration >
+                                -1 * RESULT_DURATION_TOLERANCE;
+                        assert.isTrue(isDurationWithinTolerance);
+                    });
+                });
+            });
         });
 
         /**
@@ -242,27 +253,28 @@ testCase("Fdkaac class", () => {
         assertions("Encode buffer to buffer", () => {
             const targetBitrate = 128;
 
-            return fsp.readFile(TESTFILE)
-                .then((inputBuffer) => {
-
-                    const instance = new Fdkaac({
-                        "output": "buffer",
-                        "bitrate": targetBitrate
-                    });
-                    instance.setBuffer(inputBuffer);
-
-                    return instance.encode()
-                        .then(() => {
-                            // Test expected file duration
-                            const buffer = instance.getBuffer();
-
-                            const size = buffer.byteLength;
-                            const resultDuration = (size * 8) / (targetBitrate * 1000);
-
-                            const isDurationWithinTolerance = (TESTFILE_DURATION - resultDuration) < RESULT_DURATION_TOLERANCE && TESTFILE_DURATION - resultDuration > ((-1) * RESULT_DURATION_TOLERANCE);
-                            assert.isTrue(isDurationWithinTolerance);
-                        });
+            return fsp.readFile(TESTFILE).then(inputBuffer => {
+                const instance = new Fdkaac({
+                    output: "buffer",
+                    bitrate: targetBitrate
                 });
+                instance.setBuffer(inputBuffer);
+
+                return instance.encode().then(() => {
+                    // Test expected file duration
+                    const buffer = instance.getBuffer();
+
+                    const size = buffer.byteLength;
+                    const resultDuration = (size * 8) / (targetBitrate * 1000);
+
+                    const isDurationWithinTolerance =
+                        TESTFILE_DURATION - resultDuration <
+                            RESULT_DURATION_TOLERANCE &&
+                        TESTFILE_DURATION - resultDuration >
+                            -1 * RESULT_DURATION_TOLERANCE;
+                    assert.isTrue(isDurationWithinTolerance);
+                });
+            });
         });
     });
 
@@ -284,22 +296,21 @@ testCase("Fdkaac class", () => {
             const targetBitrate = 128;
 
             const instance = new Fdkaac({
-                "output": OUTPUTFILE,
-                "bitrate": targetBitrate
+                output: OUTPUTFILE,
+                bitrate: targetBitrate
             });
 
             instance.setFile("./test/notAM4aFile.m4a");
 
-            return instance.decode()
-                .catch((error) => {
-                    errorCaught = true;
+            return instance.decode().catch(error => {
+                errorCaught = true;
 
-                    const expected = undefined;
-                    const actuall = error.message;
+                const expected = undefined;
+                const actuall = error.message;
 
-                    assert.equal(actuall, expected);
-                    assert.isTrue(errorCaught);
-                });
+                assert.equal(actuall, expected);
+                assert.isTrue(errorCaught);
+            });
         });
 
         /**
@@ -310,25 +321,26 @@ testCase("Fdkaac class", () => {
             const targetBitrate = 128;
 
             const instance = new Fdkaac({
-                "output": OUTPUTFILE,
-                "bitrate": targetBitrate
+                output: OUTPUTFILE,
+                bitrate: targetBitrate
             });
 
             instance.setFile(TESTFILE);
 
-            return instance.decode()
-                .then(() => {
-                    // Test expected file size
-                    return fsp.stat(OUTPUTFILE)
-                        .then((stats) => {
-                            fs.unlinkSync(OUTPUTFILE);
+            return instance.decode().then(() => {
+                // Test expected file size
+                return fsp.stat(OUTPUTFILE).then(stats => {
+                    fs.unlinkSync(OUTPUTFILE);
 
-                            const actualSize = stats.size;
-                            const isSizeWithinTolerance = (EXPECTED_WAV_SIZE - actualSize) < WAV_SIZE_TOLERANCE && EXPECTED_WAV_SIZE - actualSize > ((-1) * WAV_SIZE_TOLERANCE);
+                    const actualSize = stats.size;
+                    const isSizeWithinTolerance =
+                        EXPECTED_WAV_SIZE - actualSize < WAV_SIZE_TOLERANCE &&
+                        EXPECTED_WAV_SIZE - actualSize >
+                            -1 * WAV_SIZE_TOLERANCE;
 
-                            assert.isTrue(isSizeWithinTolerance);
-                        })
+                    assert.isTrue(isSizeWithinTolerance);
                 });
+            });
         });
 
         /**
@@ -340,21 +352,22 @@ testCase("Fdkaac class", () => {
             const output = "buffer";
 
             const instance = new Fdkaac({
-                "output": output,
-                "bitrate": targetBitrate
+                output: output,
+                bitrate: targetBitrate
             });
 
             instance.setFile(TESTFILE);
 
-            return instance.decode()
-                .then(() => {
-                    // Test expected file size
-                    const buffer = instance.getBuffer();
+            return instance.decode().then(() => {
+                // Test expected file size
+                const buffer = instance.getBuffer();
 
-                    const actualSize = buffer.byteLength;
-                    const isSizeWithinTolerance = (EXPECTED_WAV_SIZE - actualSize) < WAV_SIZE_TOLERANCE && EXPECTED_WAV_SIZE - actualSize > ((-1) * WAV_SIZE_TOLERANCE);
-                    assert.isTrue(isSizeWithinTolerance);
-                });
+                const actualSize = buffer.byteLength;
+                const isSizeWithinTolerance =
+                    EXPECTED_WAV_SIZE - actualSize < WAV_SIZE_TOLERANCE &&
+                    EXPECTED_WAV_SIZE - actualSize > -1 * WAV_SIZE_TOLERANCE;
+                assert.isTrue(isSizeWithinTolerance);
+            });
         });
 
         /**
@@ -364,28 +377,29 @@ testCase("Fdkaac class", () => {
         assertions("Decode buffer to file", () => {
             const targetBitrate = 128;
 
-            return fsp.readFile(TESTFILE)
-                .then((inputBuffer) => {
-                    const instance = new Fdkaac({
-                        "output": OUTPUTFILE,
-                        "bitrate": targetBitrate
-                    });
-
-                    instance.setBuffer(inputBuffer);
-
-                    return instance.decode()
-                        .then(() => {
-                            // Test expected file size
-                            return fsp.stat(OUTPUTFILE)
-                                .then((stats) => {
-                                    fs.unlinkSync(OUTPUTFILE);
-
-                                    const actualSize = stats.size;
-                                    const isSizeWithinTolerance = (EXPECTED_WAV_SIZE - actualSize) < WAV_SIZE_TOLERANCE && EXPECTED_WAV_SIZE - actualSize > ((-1) * WAV_SIZE_TOLERANCE);
-                                    assert.isTrue(isSizeWithinTolerance);
-                                })
-                        });
+            return fsp.readFile(TESTFILE).then(inputBuffer => {
+                const instance = new Fdkaac({
+                    output: OUTPUTFILE,
+                    bitrate: targetBitrate
                 });
+
+                instance.setBuffer(inputBuffer);
+
+                return instance.decode().then(() => {
+                    // Test expected file size
+                    return fsp.stat(OUTPUTFILE).then(stats => {
+                        fs.unlinkSync(OUTPUTFILE);
+
+                        const actualSize = stats.size;
+                        const isSizeWithinTolerance =
+                            EXPECTED_WAV_SIZE - actualSize <
+                                WAV_SIZE_TOLERANCE &&
+                            EXPECTED_WAV_SIZE - actualSize >
+                                -1 * WAV_SIZE_TOLERANCE;
+                        assert.isTrue(isSizeWithinTolerance);
+                    });
+                });
+            });
         });
 
         /**
@@ -395,25 +409,25 @@ testCase("Fdkaac class", () => {
         assertions("Decode buffer to buffer", () => {
             const targetBitrate = 128;
 
-            return fsp.readFile(TESTFILE)
-                .then((inputBuffer) => {
-
-                    const instance = new Fdkaac({
-                        "output": "buffer",
-                        "bitrate": targetBitrate
-                    });
-                    instance.setBuffer(inputBuffer);
-
-                    return instance.decode()
-                        .then(() => {
-                            // Test expected file size
-                            const buffer = instance.getBuffer();
-
-                            const actualSize = buffer.byteLength;
-                            const isSizeWithinTolerance = (EXPECTED_WAV_SIZE - actualSize) < WAV_SIZE_TOLERANCE && EXPECTED_WAV_SIZE - actualSize > ((-1) * WAV_SIZE_TOLERANCE);
-                            assert.isTrue(isSizeWithinTolerance);
-                        });
+            return fsp.readFile(TESTFILE).then(inputBuffer => {
+                const instance = new Fdkaac({
+                    output: "buffer",
+                    bitrate: targetBitrate
                 });
+                instance.setBuffer(inputBuffer);
+
+                return instance.decode().then(() => {
+                    // Test expected file size
+                    const buffer = instance.getBuffer();
+
+                    const actualSize = buffer.byteLength;
+                    const isSizeWithinTolerance =
+                        EXPECTED_WAV_SIZE - actualSize < WAV_SIZE_TOLERANCE &&
+                        EXPECTED_WAV_SIZE - actualSize >
+                            -1 * WAV_SIZE_TOLERANCE;
+                    assert.isTrue(isSizeWithinTolerance);
+                });
+            });
         });
     });
 
@@ -429,24 +443,26 @@ testCase("Fdkaac class", () => {
             let errorCaught = false;
 
             const instance = new Fdkaac({
-                "output": OUTPUTFILE
+                output: OUTPUTFILE
             });
 
             instance.setFile("./test/notAWavFile.wav");
 
-            return instance.encode()
+            return instance
+                .encode()
                 .then(() => {
                     assert.isTrue(errorCaught);
                 })
-                .catch((error) => {
+                .catch(error => {
                     errorCaught = true;
 
-                    const expected = "fdkaac: bitrate or bitrate-mode is mandatory";
+                    const expected =
+                        "fdkaac: bitrate or bitrate-mode is mandatory";
                     const actuall = error;
 
                     assert.equal(actuall, expected);
                     assert.isTrue(errorCaught);
-                })
+                });
         });
 
         /**
@@ -457,8 +473,8 @@ testCase("Fdkaac class", () => {
             const targetBitrate = 128;
 
             const instance = new Fdkaac({
-                "output": OUTPUTFILE,
-                "bitrate": targetBitrate
+                output: OUTPUTFILE,
+                bitrate: targetBitrate
             });
 
             instance.setFile(TESTFILE);
@@ -483,17 +499,16 @@ testCase("Fdkaac class", () => {
             const targetBitrate = 128;
 
             const instance = new Fdkaac({
-                "output": OUTPUTFILE,
-                "bitrate": targetBitrate
+                output: OUTPUTFILE,
+                bitrate: targetBitrate
             });
 
             instance.setFile(TESTFILE);
             const emitter = instance.getEmitter();
 
-            instance.encode()
-                .then(() => {
-                    fs.unlinkSync(OUTPUTFILE);
-                });
+            instance.encode().then(() => {
+                fs.unlinkSync(OUTPUTFILE);
+            });
 
             const actual = instance.getStatus();
             const expected = {
@@ -501,7 +516,7 @@ testCase("Fdkaac class", () => {
                 finished: false,
                 progress: 0,
                 eta: undefined
-            }
+            };
 
             assert.deepEqual(actual, expected);
 
@@ -519,28 +534,26 @@ testCase("Fdkaac class", () => {
             const targetBitrate = 128;
 
             const instance = new Fdkaac({
-                "output": OUTPUTFILE,
-                "bitrate": targetBitrate
+                output: OUTPUTFILE,
+                bitrate: targetBitrate
             });
 
             instance.setFile(TESTFILE);
 
-            return instance.encode()
-                .then(() => {
-                    const actual = instance.getStatus();
+            return instance.encode().then(() => {
+                const actual = instance.getStatus();
 
-                    const expected = {
-                        started: true,
-                        finished: true,
-                        progress: 100,
-                        eta: "00:00"
-                    }
+                const expected = {
+                    started: true,
+                    finished: true,
+                    progress: 100,
+                    eta: "00:00"
+                };
 
-                    assert.deepEqual(actual, expected);
-                    fs.unlinkSync(OUTPUTFILE);
-                });
+                assert.deepEqual(actual, expected);
+                fs.unlinkSync(OUTPUTFILE);
+            });
         });
-
 
         /**
          * @testname Get status eventEmitter successful convertion
@@ -550,8 +563,8 @@ testCase("Fdkaac class", () => {
             const targetBitrate = 128;
 
             const instance = new Fdkaac({
-                "output": OUTPUTFILE,
-                "bitrate": targetBitrate
+                output: OUTPUTFILE,
+                bitrate: targetBitrate
             });
 
             instance.setFile(TESTFILE);
@@ -571,16 +584,15 @@ testCase("Fdkaac class", () => {
                 fs.unlinkSync(OUTPUTFILE);
             });
 
-            emitter.on("error", (error) => {
+            emitter.on("error", error => {
                 assert.isTrue(false);
             });
 
-            return instance.encode()
-                .then(() => {
-                    // error expected is irrelevant for this test
-                    assert.isTrue(progressTriggered);
-                    assert.isTrue(finishTriggered);
-                });
+            return instance.encode().then(() => {
+                // error expected is irrelevant for this test
+                assert.isTrue(progressTriggered);
+                assert.isTrue(finishTriggered);
+            });
         });
 
         /**
@@ -591,8 +603,8 @@ testCase("Fdkaac class", () => {
             const targetBitrate = 128;
 
             const instance = new Fdkaac({
-                "output": OUTPUTFILE,
-                "bitrate": targetBitrate
+                output: OUTPUTFILE,
+                bitrate: targetBitrate
             });
 
             instance.setFile("./test/notAWavFile.wav");
@@ -601,14 +613,13 @@ testCase("Fdkaac class", () => {
 
             let errorTriggered = false;
 
-            emitter.on("error", (error) => {
+            emitter.on("error", error => {
                 errorTriggered = true;
             });
 
-            return instance.encode()
-                .catch(() => {
-                    assert.isTrue(errorTriggered);
-                });
+            return instance.encode().catch(() => {
+                assert.isTrue(errorTriggered);
+            });
         });
 
         /**
@@ -619,12 +630,12 @@ testCase("Fdkaac class", () => {
             const targetBitrate = 128;
 
             const instance = new Fdkaac({
-                "output": OUTPUTFILE,
-                "bitrate": targetBitrate,
-                "bandwidth": 5,
-                "profile": 39,
+                output: OUTPUTFILE,
+                bitrate: targetBitrate,
+                bandwidth: 5,
+                profile: 39,
                 "bitrate-mode": 4,
-                "afterburner": 0,
+                afterburner: 0,
                 "lowdelay-sbr": 1,
                 "sbr-ratio": 2,
                 "transport-format": 10,
@@ -632,94 +643,95 @@ testCase("Fdkaac class", () => {
                 "header-period": 2,
                 "gapless-mode": 1,
                 "include-sbr-delay": true,
-                "ignorelength": true,
+                ignorelength: true,
                 "moov-before-mdat": true,
-                "raw": true,
+                raw: true,
                 "raw-channels": 1,
                 "raw-rate": 88200,
                 "raw-format": "S8L",
-                "meta": {
-                    "title": "test title",
-                    "artist": "test artist",
-                    "album": "test album",
-                    "genre": "test genre",
-                    "date": "01-01-2000",
-                    "composer": "test composer",
-                    "grouping": "test group",
-                    "comment": "test comment",
+                meta: {
+                    title: "test title",
+                    artist: "test artist",
+                    album: "test album",
+                    genre: "test genre",
+                    date: "01-01-2000",
+                    composer: "test composer",
+                    grouping: "test group",
+                    comment: "test comment",
                     "album-artist": "test album-artist",
-                    "track": "4/8",
-                    "disk": "4/9",
-                    "tempo": 42,
-                    "tag": "test tag",
-                    "long-tag": "test artist",
+                    track: "4/8",
+                    disk: "4/9",
+                    tempo: 42,
+                    tag: "test tag",
+                    "long-tag": "test artist"
                 }
             });
 
             instance.setFile(TESTFILE);
 
-            expected = ['-o',
-                './test/encoded.m4a',
-                '--bitrate',
+            expected = [
+                "-o",
+                "./test/encoded.m4a",
+                "--bitrate",
                 128,
-                '--bandwidth',
+                "--bandwidth",
                 5,
-                '--profile',
+                "--profile",
                 39,
-                '--bitrate-mode',
+                "--bitrate-mode",
                 4,
-                '--afterburner',
-                '0',
-                '--lowdelay-sbr',
+                "--afterburner",
+                "0",
+                "--lowdelay-sbr",
                 1,
-                '--sbr-ratio',
+                "--sbr-ratio",
                 2,
-                '--transport-format',
+                "--transport-format",
                 10,
-                '--adts-crc-check',
-                '--header-period',
+                "--adts-crc-check",
+                "--header-period",
                 2,
-                '--gapless-mode',
+                "--gapless-mode",
                 1,
-                '--include-sbr-delay',
-                '--ignorelength',
-                '--moov-before-mdat',
-                '--raw',
-                '--raw-channels',
+                "--include-sbr-delay",
+                "--ignorelength",
+                "--moov-before-mdat",
+                "--raw",
+                "--raw-channels",
                 1,
-                '--raw-rate',
+                "--raw-rate",
                 88200,
-                '--raw-format',
-                '\'S8L\'',
-                '--title',
-                '\'test title\'',
-                '--artist',
-                '\'test artist\'',
-                '--album',
-                '\'test album\'',
-                '--genre',
-                '\'test genre\'',
-                '--date',
-                '\'01-01-2000\'',
-                '--composer',
-                '\'test composer\'',
-                '--grouping',
-                '\'test group\'',
-                '--comment',
-                '\'test comment\'',
-                '--album-artist',
-                '\'test album-artist\'',
-                '--track',
-                '\'4/8\'',
-                '--disk',
-                '\'4/9\'',
-                '--tempo',
-                '\'42\'',
-                '--tag',
-                '\'test tag\'',
-                '--long-tag',
-                '\'test artist\''
-            ]
+                "--raw-format",
+                "'S8L'",
+                "--title",
+                "'test title'",
+                "--artist",
+                "'test artist'",
+                "--album",
+                "'test album'",
+                "--genre",
+                "'test genre'",
+                "--date",
+                "'01-01-2000'",
+                "--composer",
+                "'test composer'",
+                "--grouping",
+                "'test group'",
+                "--comment",
+                "'test comment'",
+                "--album-artist",
+                "'test album-artist'",
+                "--track",
+                "'4/8'",
+                "--disk",
+                "'4/9'",
+                "--tempo",
+                "'42'",
+                "--tag",
+                "'test tag'",
+                "--long-tag",
+                "'test artist'"
+            ];
 
             const actual = instance.args;
 
