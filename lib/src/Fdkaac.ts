@@ -4,7 +4,6 @@ import {
     existsSync as fsExistsSync,
     readFile as fsReadFile,
     writeFile as fsWriteFile,
-    writeFileSync as fsWriteFileSync,
     unlinkSync as fsUnlinkSync
 } from "fs";
 import { isBuffer as utilIsBuffer } from "util";
@@ -115,7 +114,7 @@ class Fdkaac {
     }
 
     /**
-     * Get status of coverter
+     * Get status of converter
      *
      * @returns {FdkaacStatus}
      */
@@ -287,7 +286,7 @@ class Fdkaac {
                         this.status.eta
                     ]);
                 } else if (data.search(/ETA ([0-9][0-9]:[0-9][0-9])/) > -1) {
-                    // linebreak of status, eta in next line
+                    // line break of status, eta in next line
                     const etaMatch = data.match(/ETA ([0-9][0-9]:[0-9][0-9])/);
                     const eta = etaMatch[1];
 
@@ -300,7 +299,7 @@ class Fdkaac {
                         /^[0-9]{1,2}:[0-9]{1,2}.[0-9]{1,3}\/[0-9]{1,2}:[0-9]{1,2}.[0-9]{1,3}/
                     ) > -1
                 ) {
-                    // linebreak of status, unknown in next line => do nothing
+                    // line break of status, unknown in next line => do nothing
                 } else {
                     // Unexpected output => error
                     if (data.search(/^fdkaac/) == -1) {
@@ -397,7 +396,7 @@ class Fdkaac {
             args.push(this.progressedFilePath);
         }
 
-        // Excec ffmpeg to get duration of audio
+        // Exec ffmpeg to get duration of audio
         let duration: number = null;
 
         const argsDuration: string[] = [];

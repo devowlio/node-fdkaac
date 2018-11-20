@@ -1,5 +1,4 @@
 import { Options } from "./FdkaacTypings";
-import * as fs from "fs";
 
 /**
  * All options of node-fdkaac; build argument array for binary
@@ -128,7 +127,7 @@ class FdkaacOptions {
     private bitrate(value) {
         if (value < 1) {
             throw new Error(
-                "fdkaac: Invalid option: 'birate' has to be positive"
+                "fdkaac: Invalid option: 'bitrate' has to be positive"
             );
         }
 
@@ -138,7 +137,7 @@ class FdkaacOptions {
     private bitrateMode(value) {
         if (value < 0 || value > 5) {
             throw new Error(
-                "Invalid option: 'bitrateMode' has to be betweet 0 and 5"
+                "Invalid option: 'bitrateMode' has to be between 0 and 5"
             );
         }
 
