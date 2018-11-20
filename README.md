@@ -6,9 +6,9 @@ The encoder reads linear PCM audio in either WAV, raw PCM or CAF format and enco
 
 ## Requirements
 
--   Linux or Mac OS (Windows is NOT support by this package)
+-   Linux or MacOS (Windows is NOT support by this package)
 -   libfdk-aac, fdkaac and ffmpeg installed (instructions see below)
--   node 8.11.\* or newer
+-   node 10.13.\* or newer
 
 ## Installation
 
@@ -34,7 +34,7 @@ $ chmod +x install.sh
 $ sudo ./install.sh
 ```
 
-### Run on Mac OS with brew
+### Run on MacOS with brew
 
 ```bash
 $ brew install automake libtool git ffmpeg
