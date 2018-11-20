@@ -1,13 +1,13 @@
 /**
  * Status data of fdkaac instance
- * 
+ *
  * @interface FdkaacStatus
  */
 interface FdkaacStatus {
-    "started": boolean;
-    "finished": boolean;
-    "progress": number;
-    "eta": string;
+    started: boolean;
+    finished: boolean;
+    progress: number;
+    eta: string;
 }
 
 /**
@@ -22,30 +22,30 @@ namespace Options {
     export type gaplessMode = 0 | 1 | 2;
 
     export interface meta {
-        "title"?: string;
-        "artist"?: string;
-        "album"?: string;
-        "genre"?: string;
-        "date"?: string;
-        "composer"?: string;
-        "grouping"?: string;
-        "comment"?: string;
+        title?: string;
+        artist?: string;
+        album?: string;
+        genre?: string;
+        date?: string;
+        composer?: string;
+        grouping?: string;
+        comment?: string;
         "album-artist"?: string;
-        "disk"?: string;
-        "tempo"?: number;
-        "tag"?: string;
+        disk?: string;
+        tempo?: number;
+        tag?: string;
         "tag-from-file"?: string;
         "long-tag"?: string;
     }
 }
 
 interface Options {
-    "output": string | "buffer";
-    "profile"?: Options.profile;
-    "bitrate"?: number;
+    output: string | "buffer";
+    profile?: Options.profile;
+    bitrate?: number;
     "bitrate-mode"?: Options.bitrateMode;
-    "bandwidth"?: number;
-    "afterburner"?: boolean;
+    bandwidth?: number;
+    afterburner?: boolean;
     "lowdelay-sbr"?: Options.lowdelaySbr;
     "sbr-ratio"?: Options.sbrRatio;
     "transport-format"?: Options.transportFormat;
@@ -53,13 +53,13 @@ interface Options {
     "header-period"?: number;
     "gapless-mode"?: Options.gaplessMode;
     "include-sbr-delay"?: boolean;
-    "ignorelength"?: boolean;
+    ignorelength?: boolean;
     "moov-before-mdat"?: boolean;
-    "raw"?: boolean;
+    raw?: boolean;
     "raw-channels"?: number;
     "raw-rate"?: number;
     "raw-format"?: string;
-    "meta"?: Options.meta;
+    meta?: Options.meta;
 }
 
 export { FdkaacStatus, Options };

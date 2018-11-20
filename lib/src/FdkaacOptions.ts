@@ -3,7 +3,7 @@ import * as fs from "fs";
 
 /**
  * All options of node-fdkaac; build argument array for binary
- * 
+ *
  * @class FdkaacOptions
  */
 class FdkaacOptions {
@@ -110,8 +110,16 @@ class FdkaacOptions {
     }
 
     private profile(value) {
-        if (value != 2 && value != 5 && value != 29 && value != 23 && value != 39) {
-            throw new Error("fdkaac: Invalid option: 'profile' has to be 2, 5, 29, 23 or 39");
+        if (
+            value != 2 &&
+            value != 5 &&
+            value != 29 &&
+            value != 23 &&
+            value != 39
+        ) {
+            throw new Error(
+                "fdkaac: Invalid option: 'profile' has to be 2, 5, 29, 23 or 39"
+            );
         }
 
         return [`--profile`, value];
@@ -119,7 +127,9 @@ class FdkaacOptions {
 
     private bitrate(value) {
         if (value < 1) {
-            throw new Error("fdkaac: Invalid option: 'birate' has to be positive");
+            throw new Error(
+                "fdkaac: Invalid option: 'birate' has to be positive"
+            );
         }
 
         return [`--bitrate`, value];
@@ -127,7 +137,9 @@ class FdkaacOptions {
 
     private bitrateMode(value) {
         if (value < 0 || value > 5) {
-            throw new Error("Invalid option: 'bitrateMode' has to be betweet 0 and 5");
+            throw new Error(
+                "Invalid option: 'bitrateMode' has to be betweet 0 and 5"
+            );
         }
 
         return [`--bitrate-mode`, value];
@@ -135,7 +147,9 @@ class FdkaacOptions {
 
     private bandwidth(value) {
         if (value < 1) {
-            throw new Error("fdkaac: Invalid option: 'bandwidth' has to be positive");
+            throw new Error(
+                "fdkaac: Invalid option: 'bandwidth' has to be positive"
+            );
         }
 
         return [`--bandwidth`, value];
@@ -144,15 +158,16 @@ class FdkaacOptions {
     private afterburner(value) {
         if (value == true) {
             return [`--afterburner`, `1`];
-        }
-        else {
+        } else {
             return [`--afterburner`, `0`];
         }
     }
 
     private lowdelaySbr(value) {
         if (value != -1 && value != 0 && value != 1) {
-            throw new Error("fdkaac: Invalid option: 'lowdelaySbr' has to be -1, 0 or 1");
+            throw new Error(
+                "fdkaac: Invalid option: 'lowdelaySbr' has to be -1, 0 or 1"
+            );
         }
 
         return [`--lowdelay-sbr`, value];
@@ -160,15 +175,26 @@ class FdkaacOptions {
 
     private sbrRatio(value) {
         if (value != 0 && value != 1 && value != 2) {
-            throw new Error("fdkaac: Invalid option: 'sbrRatio' has to be 0, 1 or 2");
+            throw new Error(
+                "fdkaac: Invalid option: 'sbrRatio' has to be 0, 1 or 2"
+            );
         }
 
         return [`--sbr-ratio`, value];
     }
 
     private transportFormat(value) {
-        if (value != 0 && value != 1 && value != 2 && value != 6 && value != 7 && value != 10) {
-            throw new Error("fdkaac: Invalid option: 'transportFormat' has to be 0, 1, 2, 6, 7 or 10");
+        if (
+            value != 0 &&
+            value != 1 &&
+            value != 2 &&
+            value != 6 &&
+            value != 7 &&
+            value != 10
+        ) {
+            throw new Error(
+                "fdkaac: Invalid option: 'transportFormat' has to be 0, 1, 2, 6, 7 or 10"
+            );
         }
 
         return [`--transport-format`, value];
@@ -177,8 +203,7 @@ class FdkaacOptions {
     private adtsCrcCheck(value) {
         if (value == true) {
             return [`--adts-crc-check`];
-        }
-        else {
+        } else {
             return undefined;
         }
     }
@@ -189,7 +214,9 @@ class FdkaacOptions {
 
     private gaplessMode(value) {
         if (value != 0 && value != 1 && value != 2) {
-            throw new Error("fdkaac: Invalid option: 'gaplessMode' has to be 0, 1 or 2");
+            throw new Error(
+                "fdkaac: Invalid option: 'gaplessMode' has to be 0, 1 or 2"
+            );
         }
 
         return [`--gapless-mode`, value];
@@ -198,8 +225,7 @@ class FdkaacOptions {
     private includeSbrDelay(value) {
         if (value == true) {
             return [`--include-sbr-delay`];
-        }
-        else {
+        } else {
             return undefined;
         }
     }
@@ -207,8 +233,7 @@ class FdkaacOptions {
     private ignorelength(value) {
         if (value == true) {
             return [`--ignorelength`];
-        }
-        else {
+        } else {
             return undefined;
         }
     }
@@ -216,8 +241,7 @@ class FdkaacOptions {
     private moovBeforeMdat(value) {
         if (value == true) {
             return [`--moov-before-mdat`];
-        }
-        else {
+        } else {
             return undefined;
         }
     }
@@ -225,15 +249,16 @@ class FdkaacOptions {
     private raw(value) {
         if (value == true) {
             return [`--raw`];
-        }
-        else {
+        } else {
             return undefined;
         }
     }
 
     private rawChannels(value) {
         if (value < 1) {
-            throw new Error("fdkaac: Invalid option: 'rawChannels' has to be positive");
+            throw new Error(
+                "fdkaac: Invalid option: 'rawChannels' has to be positive"
+            );
         }
 
         return [`--raw-channels`, value];
@@ -241,7 +266,9 @@ class FdkaacOptions {
 
     private rawRate(value) {
         if (value < 1) {
-            throw new Error("fdkaac: Invalid option: 'rawRate' has to be positive");
+            throw new Error(
+                "fdkaac: Invalid option: 'rawRate' has to be positive"
+            );
         }
 
         return [`--raw-rate`, value];
@@ -255,8 +282,26 @@ class FdkaacOptions {
         for (const key in metaObj) {
             const value = metaObj[key];
 
-            if (key != "title" && key != "artist" && key != "album" && key != "genre" && key != "date" && key != "composer" && key != "grouping" && key != "comment" && key != "album-artist" && key != "track" && key != "disk" && key != "tempo" && key != "tag" && key != "tag-from-file" && key != "long-tag") {
-                throw new Error(`Invalid option: 'meta' unknown property '${key}'`);
+            if (
+                key != "title" &&
+                key != "artist" &&
+                key != "album" &&
+                key != "genre" &&
+                key != "date" &&
+                key != "composer" &&
+                key != "grouping" &&
+                key != "comment" &&
+                key != "album-artist" &&
+                key != "track" &&
+                key != "disk" &&
+                key != "tempo" &&
+                key != "tag" &&
+                key != "tag-from-file" &&
+                key != "long-tag"
+            ) {
+                throw new Error(
+                    `Invalid option: 'meta' unknown property '${key}'`
+                );
             }
 
             const arg0 = `--${key}`;
