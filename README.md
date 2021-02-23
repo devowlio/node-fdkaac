@@ -1,5 +1,7 @@
 # node-fdkaac
 
+<img align="right" src="https://assets.devowl.io/git/node-fdkaac/logo.png" alt="node-fdkaac logo" height="180" />
+
 Fraunhofer FDK AAC is a high-quality open-source AAC encoder. For all AAC and M4A encoding needs, a Node.js wrapper of the full [fdkaac](https://github.com/nu774/fdkaac) command line frontend (by [nu774](https://github.com/nu774)) based on [libfdk-aac](https://github.com/mstorsjo/fdk-aac) encoder.
 
 The encoder reads linear PCM audio in either WAV, raw PCM or CAF format and encodes it into an M4A or an AAC file.
