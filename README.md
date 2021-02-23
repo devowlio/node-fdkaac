@@ -8,7 +8,7 @@ The encoder reads linear PCM audio in either WAV, raw PCM or CAF format and enco
 
 -   Linux or MacOS (Windows is NOT support by this package)
 -   libfdk-aac, fdkaac and ffmpeg installed (instructions see below)
--   node 10.13.\* or newer
+-   node 12.20.\* or newer
 
 ## Installation
 
@@ -29,7 +29,7 @@ _install.sh requirements:_
 ### Run on Debian
 
 ```bash
-$ apt-get install automake libtool git ffmpeg
+$ sudo apt-get install automake libtool git ffmpeg
 $ chmod +x install.sh
 $ sudo ./install.sh
 ```
@@ -51,7 +51,7 @@ const Fdkaac = require("node-fdkaac").Fdkaac;
 
 const encoder = new Fdkaac({
     output: "./audio-files/demo.m4a",
-    bitrate: 192
+    bitrate: 192,
 }).setFile("./audio-files/demo.wav");
 
 encoder
@@ -59,7 +59,7 @@ encoder
     .then(() => {
         // Encoding finished
     })
-    .catch(error => {
+    .catch((error) => {
         // Something went wrong
     });
 ```
@@ -71,7 +71,7 @@ const Fdkaac = require("node-fdkaac").Fdkaac;
 
 const encoder = new Fdkaac({
     output: "buffer",
-    bitrate: 192
+    bitrate: 192,
 }).setFile("./audio-files/demo.wav");
 
 encoder
@@ -80,7 +80,7 @@ encoder
         // Encoding finished
         const buffer = encoder.getBuffer();
     })
-    .catch(error => {
+    .catch((error) => {
         // Something went wrong
     });
 ```
@@ -135,7 +135,7 @@ const Fdkaac = require("node-fdkaac").Fdkaac;
 
 const encoder = new Fdkaac({
     output: "buffer",
-    bitrate: 192
+    bitrate: 192,
 }).setFile("./audio-files/demo.wav");
 
 encoder
@@ -143,7 +143,7 @@ encoder
     .then(() => {
         // Encoding finished
     })
-    .catch(error => {
+    .catch((error) => {
         // Something went wrong
     });
 
@@ -157,7 +157,7 @@ const Fdkaac = require("node-fdkaac").Fdkaac;
 
 const encoder = new Fdkaac({
     output: "buffer",
-    bitrate: 192
+    bitrate: 192,
 }).setFile("./audio-files/demo.wav");
 
 const emitter = encoder.getEmitter();
@@ -170,7 +170,7 @@ emitter.on("finish", () => {
     // On finish
 });
 
-emitter.on("error", error => {
+emitter.on("error", (error) => {
     // On error
 });
 
@@ -179,7 +179,7 @@ encoder
     .then(() => {
         // Encoding finished
     })
-    .catch(error => {
+    .catch((error) => {
         // Something went wrong
     });
 ```
@@ -190,7 +190,7 @@ encoder
 const Fdkaac = require("node-fdkaac").Fdkaac;
 
 const decoder = new Fdkaac({
-    output: "./audio-files/demo.wav"
+    output: "./audio-files/demo.wav",
 }).setFile("./audio-files/demo.m4a");
 
 decoder
@@ -198,7 +198,7 @@ decoder
     .then(() => {
         // Decoding finished
     })
-    .catch(error => {
+    .catch((error) => {
         // Something went wrong
     });
 ```
@@ -209,7 +209,7 @@ decoder
 const Fdkaac = require("node-fdkaac").Fdkaac;
 
 const decoder = new Lame({
-    output: "buffer"
+    output: "buffer",
 }).setFile("./audio-files/demo.m4a");
 
 decoder
@@ -218,7 +218,7 @@ decoder
         // Decoding finished
         const buffer = decoder.getBuffer();
     })
-    .catch(error => {
+    .catch((error) => {
         // Something went wrong
     });
 ```

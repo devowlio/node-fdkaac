@@ -54,7 +54,7 @@ make install
 
 cd ..
 
-# Install fdkaac (see https://github.com/mstorsjo/fdk-aac)
+# Install fdkaac (see https://github.com/nu774/fdkaac)
 printf "Install fdkaac\n"
 
 git clone https://github.com/nu774/fdkaac
@@ -63,3 +63,4 @@ autoreconf -i
 ./configure
 make
 make install
+ldconfig
