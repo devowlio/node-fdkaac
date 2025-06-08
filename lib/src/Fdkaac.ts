@@ -6,7 +6,6 @@ import {
     writeFile as fsWriteFile,
     unlinkSync as fsUnlinkSync
 } from "fs";
-import { isBuffer as utilIsBuffer } from "util";
 import { spawn } from "child_process";
 import { EventEmitter } from "events";
 
@@ -68,7 +67,7 @@ class Fdkaac {
      * @memberOf Fdkaac
      */
     public setBuffer(file: Buffer): Fdkaac {
-        if (!utilIsBuffer(file)) {
+        if (!Buffer.isBuffer(file)) {
             throw new Error("Audio file (buffer) dose not exist");
         }
 

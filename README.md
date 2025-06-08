@@ -10,7 +10,7 @@ The encoder reads linear PCM audio in either WAV, raw PCM or CAF format and enco
 
 -   Linux or MacOS (Windows is NOT support by this package)
 -   libfdk-aac, fdkaac and ffmpeg installed (instructions see below)
--   node 12.20.\* or newer
+-   node 18.20.\* or newer
 
 ## Installation
 
